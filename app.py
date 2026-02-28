@@ -156,7 +156,26 @@ def mpesa_payment():
         return jsonify({"message": "Please Complete Payment in Your Phone and we will deliver in minutes"})
     
 
+# GET METHOD
+@app.route("/api/get_product_details",methods=["GET"])
+def getProduct() :
+    #connection to database
+    connection=pymysql.connect(host="localhost",database="austine_sokogarden",password="",user="root")
+    # Initializing the connection using a cursor
+    cursor=connection.cursor(pymysql.cursors.DictCursor)
 
+    # sql command
+
+    sql='select * from product_details'
+    # executing sql command
+    cursor.execute(sql)
+
+    # retrieving products
+    products=cursor.fetchall()
+
+    # closing the connection to database
+    connection.close()
+    return jsonify(products)
 
 
 
